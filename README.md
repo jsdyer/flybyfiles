@@ -3,7 +3,7 @@
 Check which asteroids were observed before their closest approach to Earth. [Open Flyby Files](https://coolcode.ca/flybyfiles/).
 
 <!-- coolcode:guide -->
-Choose 2020 QG and compare the date-only orbit record with JPL’s account of the discovery image. Then select After to find 2020 VT4, whose first observation in the present orbit is dated the following day.
+Choose 2024 MK. Its present orbit uses a measurement from 2014, while JPL dates its discovery to thirteen days before the 2024 flyby. For 2020 QG, the discovery image came about six hours after closest approach. All six cases link to a NASA or ESA discovery account.
 <!-- /coolcode:guide -->
 
 ## Data and interpretation

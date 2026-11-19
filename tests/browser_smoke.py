@@ -36,6 +36,10 @@ def main():
                 assert '1 calendar day after' in page.locator('#result').inner_text()
                 page.locator('#kind').select_option('Before')
                 assert page.locator('#object option').count() >= 2
+                page.locator('#object').select_option('2024 MK')
+                assert "thirteen days" in page.locator('#evidence').inner_text()
+                assert "4 discoveries before" in page.locator('#sample-result').inner_text()
+                assert "planetary-radar" in page.locator('#discovery-report').get_attribute('href')
                 page.screenshot(path=str(screenshots / "desktop.png"), full_page=True)
                 page.set_viewport_size({"width": 390, "height": 844})
                 assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")

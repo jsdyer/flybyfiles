@@ -1,7 +1,7 @@
 {
   "id": "flybyfiles",
   "title": "Flyby Files",
-  "description": "Check which asteroids were observed before their closest approach to Earth.",
+  "description": "See which of six close-passing asteroids astronomers discovered before the flyby, and when old images changed the record.",
   "category": "field-kit",
   "tags": [
     "asteroids",
