@@ -1,7 +1,13 @@
+import {accounts} from './accounts.mjs';
 import {el,fmt,options,source,table,start} from './ui.mjs';
 import {relativeDay,km} from './model.mjs';
 start(data=>{
   options('kind',['All','Before','Same day','After'].map(v=>[v,v]));
+  const reviewed = data.rows.map(row => accounts[row.name]).filter(Boolean);
+  const prior = reviewed.filter(account => account.timing === 'Before').length;
+  const after = reviewed.filter(account => account.timing === 'After').length;
+  el('sample-result').textContent = 'The discovery accounts place ' + prior + ' discoveries before closest approach and ' +
+    after + ' after it across ' + reviewed.length + ' reviewed cases. The sample is selected and cannot estimate the detection rate for all asteroids.';
   function show(){
     const current=data.rows.find(r=>r.name===el('object').value);
     if(!current){el('result').textContent='No matching encounters.';return;}
@@ -9,8 +15,10 @@ start(data=>{
     el('name').textContent=current.name;
     el('result').textContent=timing.days===0?'First observation and encounter on the same calendar day':
       'First observation '+fmt(Math.abs(timing.days),0)+' calendar '+(Math.abs(timing.days)===1?'day':'days')+' '+timing.kind.toLowerCase()+' the encounter';
-    el('evidence').textContent=current.name==='2020 QG'?'JPL independently dates the discovery image to about six hours after the asteroid passed Earth.':
-      'The first-observation date comes from the present orbit solution. Earlier imaging may have been identified retrospectively.';
+    const account=accounts[current.name];
+    el('evidence').textContent=account?.detail || 'This edition has no separate discovery account for this encounter.';
+    el('discovery-report').hidden=!account;
+    if(account) source('discovery-report',account.source);
     table('facts',['Record','Published value'],[
       ['Closest approach to Earth (TDB)',current.passTime.replace('T',' ')],
       ['Time uncertainty (JPL, ±)',current.timeUncertainty],['First observation used for orbit',current.first],
@@ -24,7 +32,7 @@ start(data=>{
     const chosen=el('kind').value;
     const items=data.rows.filter(r=>chosen==='All'||relativeDay(r.first,r.passTime).kind===chosen);
     options('object',items.map(r=>[r.name,r.name]),el('object').value);
-    table('rows',['Asteroid','Approach day (TDB)','First observation','Timing'],items.map(r=>[r.name,r.passTime.slice(0,10),r.first,relativeDay(r.first,r.passTime).kind]));
+    table('rows',['Asteroid','Approach day (TDB)','First observation in orbit','Orbit date vs pass','Discovery vs pass'],items.map(r=>[r.name,r.passTime.slice(0,10),r.first,relativeDay(r.first,r.passTime).kind,accounts[r.name]?.timing ?? 'Unreviewed']));
     show();
   }
   el('kind').onchange=filter;el('object').onchange=show;filter();
