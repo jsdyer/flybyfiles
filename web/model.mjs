@@ -1,7 +1,5 @@
-// Keep transformations separate from the DOM so they can be tested directly.
-export function cleanLines(text) {
-  if (typeof text !== 'string') throw new TypeError('Expected text');
-  const lines = text.split(/\r\n|\r|\n/).map(line => line.trim()).filter(Boolean);
-  const unique = [...new Set(lines)];
-  return { text: unique.join('\n'), count: unique.length, removed: lines.length - unique.length };
+export function relativeDay(first,passTime){
+  const days=Math.round((Date.parse(first+'T00:00:00Z')-Date.parse(passTime.slice(0,10)+'T00:00:00Z'))/86400000);
+  return {days,kind:days===0?'Same day':days<0?'Before':'After'};
 }
+export const km=au=>au*149597870.7;

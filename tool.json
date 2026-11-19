@@ -1,16 +1,36 @@
 {
-  "id": "coolcode-tool-template",
-  "title": "CoolCode Tool Starter",
-  "description": "A browser-only example that trims lines and removes exact duplicates.",
-  "category": "security",
-  "tags": ["text", "lines", "duplicates"],
-  "icon": "scan-search",
-  "url": "/coolcode-tool-template/",
-  "source": "https://github.com/jsdyer/coolcode-tool-template",
+  "id": "flybyfiles",
+  "title": "Flyby Files",
+  "description": "Check which asteroids were observed before their closest approach to Earth.",
+  "category": "field-kit",
+  "tags": [
+    "asteroids",
+    "JPL",
+    "near-Earth objects"
+  ],
+  "icon": "telescope",
+  "url": "/flybyfiles/",
+  "source": "https://github.com/jsdyer/flybyfiles",
   "hosting": "project",
   "access": "browser",
   "data_info": {
-    "mode": "local",
-    "detail": "The browser reads the text you paste and compares its lines."
+    "mode": "snapshot",
+    "detail": "JPL’s encounter and orbit records give passage times, distances and first observation dates for selected near-Earth asteroids.",
+    "cadence": "Monthly",
+    "probes": [
+      {
+        "label": "Data retrieved",
+        "url": "https://coolcode.ca/flybyfiles/data/edition.json",
+        "path": [
+          "retrieved"
+        ],
+        "count_at": {
+          "path": [
+            "count"
+          ],
+          "unit": "encounters"
+        }
+      }
+    ]
   }
 }
